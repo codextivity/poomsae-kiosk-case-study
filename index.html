@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Taekwondo Coaching Kiosk</title>
+<meta name="description" content="Case study: a webcam-based kiosk that recognises taekwondo poomsae movements in order and scores them against reference performers, running live on a consumer GPU.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,600..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F8FB;
+    --surface: #FFFFFF;
+    --ink: #141A24;
+    --muted: #556173;
+    --line: #DCE2EA;
+    --accent: #1E4E9C;
+    --accent-soft: #EAF0FA;
+    --red: #B8322A;
+    --code-bg: #EEF2F7;
+    --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
+    --font-body: "IBM Plex Sans", "Segoe UI", system-ui, "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F131A;
+      --surface: #161B24;
+      --ink: #E6EAF0;
+      --muted: #9AA6B8;
+      --line: #2A3342;
+      --accent: #7EA6EE;
+      --accent-soft: #1B2A44;
+      --red: #E06A5F;
+      --code-bg: #1D2430;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F131A;
+    --surface: #161B24;
+    --ink: #E6EAF0;
+    --muted: #9AA6B8;
+    --line: #2A3342;
+    --accent: #7EA6EE;
+    --accent-soft: #1B2A44;
+    --red: #E06A5F;
+    --code-bg: #1D2430;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.65 var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  code { font: 500 0.88em var(--font-mono); background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; }
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+  /* Header */
+  header.hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+    font: 500 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+  .mark { display: inline-flex; gap: 4px; }
+  .mark i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+  .mark i:first-child { background: var(--red); }
+  .mark i:last-child { background: var(--accent); }
+  h1 {
+    margin-top: 20px;
+    font-size: clamp(36px, 6vw, 68px);
+    line-height: 1.02;
+    font-weight: 800;
+    font-stretch: 112%;
+    letter-spacing: -0.02em;
+    max-width: 16ch;
+  }
+  .lede { margin-top: 20px; font-size: clamp(18px, 2vw, 21px); line-height: 1.55; color: var(--muted); max-width: 62ch; }
+  .lede strong { color: var(--ink); font-weight: 500; }
+
+  dl.meta {
+    margin: 36px 0 0; display: grid; gap: 20px 32px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  dl.meta dt { font: 500 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  dl.meta dd { margin: 8px 0 0; font-size: 15px; line-height: 1.5; }
+
+  .notice {
+    margin-top: 32px; padding: 14px 16px; background: var(--accent-soft); border-radius: 8px;
+    font-size: 14.5px; line-height: 1.55; max-width: 80ch;
+  }
+
+  /* Layout */
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; padding-top: 48px; padding-bottom: 80px; }
+  @media (min-width: 1000px) { .layout { grid-template-columns: 200px minmax(0, 1fr); gap: 64px; } }
+  nav.toc { display: none; }
+  @media (min-width: 1000px) {
+    nav.toc { display: block; position: sticky; top: 32px; align-self: start; }
+  }
+  nav.toc p { font: 500 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  nav.toc a { display: block; padding: 5px 0 5px 12px; border-left: 2px solid var(--line); color: var(--muted); text-decoration: none; font-size: 14px; line-height: 1.4; }
+  nav.toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+
+  main { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 72px; }
+  main > section { min-width: 0; }
+  section > h2 {
+    font-size: clamp(26px, 3vw, 34px); font-weight: 700; font-stretch: 108%; letter-spacing: -0.01em; line-height: 1.15;
+  }
+  .prose { max-width: 68ch; display: grid; gap: 16px; margin-top: 20px; }
+  .prose ul, .prose ol { margin: 0; padding-left: 1.25em; display: grid; gap: 8px; }
+
+  /* Stats */
+  .stats {
+    margin-top: 24px; display: grid; gap: 0;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    border-top: 1px solid var(--line);
+  }
+  .stat { padding: 20px 20px 20px 0; border-bottom: 1px solid var(--line); }
+  .stat b {
+    display: block; font: 700 34px/1 var(--font-display); font-stretch: 110%;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+  }
+  .stat span { display: block; margin-top: 8px; font-size: 14px; line-height: 1.45; color: var(--muted); }
+
+  /* Diagram */
+  figure { margin: 24px 0 0; }
+  .diagram { overflow-x: auto; border-radius: 12px; }
+  .diagram svg { display: block; min-width: 720px; width: 100%; height: auto; }
+  figcaption { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+  .d-bg { fill: var(--surface); stroke: var(--line); }
+  .d-box { fill: var(--bg); stroke: var(--line); stroke-width: 1.5; }
+  .d-key { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .d-side { fill: var(--bg); stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .d-h { font: 600 14px var(--font-body); fill: var(--ink); }
+  .d-s { font: 400 12px var(--font-body); fill: var(--muted); }
+  .d-lab { font: 500 11px var(--font-mono); fill: var(--muted); letter-spacing: 0.06em; }
+  .d-ln { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+  .d-ln-d { stroke: var(--muted); stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+  .d-ah { fill: var(--muted); }
+
+  .steps { margin-top: 24px; max-width: 68ch; padding-left: 1.25em; display: grid; gap: 12px; }
+  .steps strong { font-weight: 600; }
+
+  /* Highlights */
+  .highlight { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); }
+  .highlight:first-of-type { margin-top: 28px; }
+  .highlight h3 { font-size: 22px; font-weight: 700; font-stretch: 105%; line-height: 1.25; }
+  .rows { margin-top: 18px; display: grid; gap: 18px; }
+  .row { display: grid; gap: 6px; }
+  @media (min-width: 720px) { .row { grid-template-columns: 116px minmax(0, 68ch); gap: 24px; } }
+  .row > .k { font: 500 12px/1.9 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .row.result > .k { color: var(--accent); }
+  .row > div { display: grid; gap: 12px; }
+  .row ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+
+  table.data { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .table-wrap { margin-top: 20px; overflow-x: auto; max-width: 80ch; }
+  table.data th, table.data td { text-align: left; vertical-align: top; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); }
+  table.data th { font: 500 12px/1.4 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  table.data td:first-child { font-weight: 500; white-space: nowrap; }
+
+  .shot { margin-top: 28px; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+
+  .lessons { margin-top: 24px; display: grid; gap: 0; max-width: 72ch; }
+  .lessons div { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .lessons div:first-child { border-top: 1px solid var(--line); }
+  .lessons b { display: block; font: 700 18px/1.3 var(--font-display); font-stretch: 105%; }
+  .lessons p { margin-top: 6px; color: var(--muted); }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 48px; font-size: 13.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span class="mark" aria-hidden="true"><i></i><i></i></span>
+      <span>Case study</span><span>Computer vision</span><span>Jan – Nov 2026</span>
+    </div>
+    <h1>AI Taekwondo Coaching Kiosk</h1>
+    <p class="lede">A Windows kiosk for taekwondo schools that watches a student perform a poomsae through <strong>one webcam</strong>, recognises <strong>every movement in order</strong>, scores each one against skilled reference performers, and gives posture feedback. It runs live on a consumer GPU, with no server.</p>
+
+    <dl class="meta">
+      <div><dt>My role</dt><dd>AI engineer: the computer vision pipeline (pose, recognition, scoring), its integration into the kiosk app, releases, field testing and the handover</dd></div>
+      <div><dt>Team</dt><dd>Two developers. I owned the AI pipeline and the kiosk app; my teammate built the voice AI coach</dd></div>
+      <div><dt>Period</dt><dd>January – November 2026: training from January, kiosk app from July, final release 1.3.8 in November</dd></div>
+      <div><dt>Stack</dt><dd>Python · PyTorch · ONNX Runtime · RTMPose · YOLO26 · DTW · PySide6 / QML · SQLite</dd></div>
+    </dl>
+
+    <p class="notice">I built this system at my previous company and handed it over to a new team when I left. The source code, models and data belong to the company and are not public. This page describes my work with the company's permission and contains no training data, student data or company resources.</p>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc" aria-label="On this page">
+    <p>On this page</p>
+    <ol>
+      <li><a href="#glance">At a glance</a></li>
+      <li><a href="#problem">The problem</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#highlights">Engineering highlights</a></li>
+      <li><a href="#learned">What I learned</a></li>
+      <li><a href="#stack">Tech stack</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="glance">
+      <h2>At a glance</h2>
+      <div class="stats">
+        <div class="stat"><b>8 forms</b><span>Taegeuk 1–8, recognised movement by movement, strictly in order</span></div>
+        <div class="stat"><b>~28 fps</b><span>analysed live on the kiosk GPU; pose takes about 9 ms per frame</span></div>
+        <div class="stat"><b>26</b><span>body keypoints per frame, for the one performer at the start position</span></div>
+        <div class="stat"><b>5 scores</b><span>per movement, plus hand, foot and knee posture feedback</span></div>
+        <div class="stat"><b>12</b><span>releases from 1.1.1 to 1.3.8, shipped to kiosks through auto-update</span></div>
+        <div class="stat"><b>1,372</b><span>automated tests passing at handover</span></div>
+        <div class="stat"><b>12 chapters</b><span>bilingual developer guide with 10 diagrams</span></div>
+      </div>
+    </section>
+
+    <section id="problem">
+      <h2>The problem</h2>
+      <div class="prose">
+        <p>In a taekwondo school, one instructor can't watch every student practise every form. The kiosk gives each student an instructor's eye: stand on the mat, perform, and get told which movements were missed and how each one compares with skilled performers.</p>
+        <p>The constraints shaped every decision:</p>
+        <ul>
+          <li><strong>One ordinary webcam, front view only.</strong> No depth camera and no motion capture.</li>
+          <li><strong>A consumer GPU in a kiosk</strong>, running offline, with no server.</li>
+          <li><strong>A busy room.</strong> Parents, instructors and other students walk behind the performer.</li>
+          <li><strong>Real students</strong>, including beginners who pause, skip movements, restart, or step out of view.</li>
+          <li><strong>Practice and exam modes.</strong> In the exam, every rule has to be fair and explainable.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <figure>
+        <div class="diagram">
+          <svg viewBox="0 0 960 300" role="img" aria-labelledby="dt dd">
+            <title id="dt">From camera to report</title>
+            <desc id="dd">Webcam frames go through person detection and pose estimation, performer tracking, an LSTM classifier and a step segmenter, then scoring against reference performers, and finally the practice, exam and report screens. The voice AI coach reads the saved results.</desc>
+            <defs>
+              <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="d-ah" d="M0,0 L10,5 L0,10 z"/></marker>
+            </defs>
+            <rect class="d-bg" x="0.5" y="0.5" width="959" height="299" rx="12"/>
+            <text class="d-lab" x="24" y="30">EVERY FRAME (~28 FPS)</text>
+            <text class="d-lab" x="24" y="190">EVERY MOVEMENT</text>
+
+            <rect class="d-box" x="20" y="44" width="196" height="72" rx="8"/>
+            <text class="d-h" x="118" y="74" text-anchor="middle">Webcam</text>
+            <text class="d-s" x="118" y="94" text-anchor="middle">one USB camera, front view</text>
+            <rect class="d-box" x="256" y="44" width="196" height="72" rx="8"/>
+            <text class="d-h" x="354" y="74" text-anchor="middle">Detect + pose</text>
+            <text class="d-s" x="354" y="94" text-anchor="middle">YOLO26 + RTMPose, 26 keypoints</text>
+            <rect class="d-box" x="492" y="44" width="196" height="72" rx="8"/>
+            <text class="d-h" x="590" y="74" text-anchor="middle">Performer tracking</text>
+            <text class="d-s" x="590" y="94" text-anchor="middle">start position, ignore bystanders</text>
+            <rect class="d-box" x="728" y="44" width="212" height="72" rx="8"/>
+            <text class="d-h" x="834" y="74" text-anchor="middle">LSTM classifier</text>
+            <text class="d-s" x="834" y="94" text-anchor="middle">one per form, 24-frame window</text>
+            <line class="d-ln" x1="216" y1="80" x2="254" y2="80" marker-end="url(#ar)"/>
+            <line class="d-ln" x1="452" y1="80" x2="490" y2="80" marker-end="url(#ar)"/>
+            <line class="d-ln" x1="688" y1="80" x2="726" y2="80" marker-end="url(#ar)"/>
+            <line class="d-ln" x1="834" y1="116" x2="834" y2="202" marker-end="url(#ar)"/>
+
+            <rect class="d-key" x="728" y="204" width="212" height="72" rx="8"/>
+            <text class="d-h" x="834" y="234" text-anchor="middle">Step segmenter</text>
+            <text class="d-s" x="834" y="254" text-anchor="middle">order, DTW skip check, catch-up</text>
+            <rect class="d-key" x="492" y="204" width="196" height="72" rx="8"/>
+            <text class="d-h" x="590" y="234" text-anchor="middle">Scoring</text>
+            <text class="d-s" x="590" y="254" text-anchor="middle">vs reference performers</text>
+            <rect class="d-box" x="256" y="204" width="196" height="72" rx="8"/>
+            <text class="d-h" x="354" y="234" text-anchor="middle">Screens</text>
+            <text class="d-s" x="354" y="254" text-anchor="middle">practice, exam, report</text>
+            <rect class="d-side" x="20" y="204" width="196" height="72" rx="8"/>
+            <text class="d-h" x="118" y="234" text-anchor="middle">Voice AI coach</text>
+            <text class="d-s" x="118" y="254" text-anchor="middle">reads the saved results</text>
+            <line class="d-ln" x1="728" y1="240" x2="690" y2="240" marker-end="url(#ar)"/>
+            <line class="d-ln" x1="492" y1="240" x2="454" y2="240" marker-end="url(#ar)"/>
+            <line class="d-ln-d" x1="256" y1="240" x2="218" y2="240" marker-end="url(#ar)"/>
+          </svg>
+        </div>
+        <figcaption>Everything runs on the kiosk PC. The highlighted stages are where most of my engineering went.</figcaption>
+      </figure>
+      <ol class="steps">
+        <li><strong>Find the performer.</strong> A YOLO26 person detector and an RTMPose model give 26 body keypoints per frame. Only the person standing at the start position, near the middle of the mat, is followed.</li>
+        <li><strong>Recognise movements in order.</strong> An LSTM classifier per form reads a sliding window of 24 frames (keypoints plus velocities) and guesses the movement for every frame. A step segmenter turns those guesses into movements, strictly in poomsae order, and moves the step bar on screen.</li>
+        <li><strong>Score each movement.</strong> The movement's keypoints are compared with the same movement by skilled reference performers. Posture measurements (stance width, knee angle, hand height) are checked against the references' range, and the movement path is aligned with DTW.</li>
+        <li><strong>Show it.</strong> The practice and exam screens show the live skeleton, step bar and scores. The report shows the total, the five scores, a score per movement, side-by-side replays with the reference performers, and posture feedback. The voice AI coach reads the same results to answer questions about the student's own runs.</li>
+      </ol>
+    </section>
+
+    <section id="highlights">
+      <h2>Engineering highlights</h2>
+
+      <article class="highlight">
+        <h3>Making the live skeleton keep up</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Problem</span><div><p>On the kiosk GPU the skeleton lagged behind the student on fast movements. CPU use was 80–90% while the GPU sat at about 40%.</p></div></div>
+          <div class="row"><span class="k">What I did</span><div>
+            <p>I treated each theory as something to disprove:</p>
+            <ul>
+              <li>"GPU contention" looked convincing in the logs. Forcing all AI inference onto the CPU changed nothing, so that theory was wrong, and I said so in my next report.</li>
+              <li>A thread that only sleeps 20 ms in a loop showed Python's GIL being held for 60–100 ms at a time.</li>
+              <li>Tracing it found the real causes. The skeleton overlay was drawn on a QML Canvas, which re-uploads a full image every frame. A frame-ID bug compared fresh pose results with stale timestamps. I rewrote the overlay with native QML scene-graph items and fixed the frame correlation.</li>
+              <li>Each movement's reference clip was loaded from disk at the moment the student started that movement, a 100–300 ms freeze every time. Prewarming all clips on the loading screen removed it.</li>
+              <li>I also fixed a camera preview that sampled about one pixel per frame. The app also hung at boot when the saved camera was a disconnected virtual device, so camera probing now has a 5 s timeout.</li>
+            </ul>
+          </div></div>
+          <div class="row result"><span class="k">Result</span><div><p>Smooth tracking on fast movements, confirmed with the installed build on both the kiosk PC and the development PC.</p></div></div>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <h3>Recognising movements strictly in order</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Problem</span><div><p>A per-frame classifier is noisy, and some movements look alike (in Taegeuk 1, movements 2 and 15, and 4 and 18). If the step bar follows every guess, it jumps ahead and skips movements the student actually performed. If it refuses every jump, one missed movement stops it for the rest of the run.</p></div></div>
+          <div class="row"><span class="k">What I did</span><div>
+            <p>I built a step segmenter with layered rules, each added because of a failure seen in a recording or a live test:</p>
+            <ul>
+              <li><strong>Hold gate.</strong> A new movement counts only once the smoothed guess holds. The gate adapts to confidence: high confidence fires a frame earlier, low confidence needs a frame more.</li>
+              <li><strong>Skip check.</strong> Before a jump ahead is accepted, the recent keypoints are aligned with the candidate movement's reference band using DTW. The distance must fall within a multiple of the band's own p90 tolerance. My first tolerance (1.5×) came from clean recordings and stalled a real Taegeuk 8 run for over a minute. I raised it to 3.0× and re-checked that the misfire tests still failed as they should.</li>
+              <li><strong>Held jump.</strong> If the skip check rejects a jump but the classifier keeps predicting that movement for 0.5 s, the jump is still accepted when the head faces the way that movement's reference does.</li>
+              <li><strong>Chain catch-up.</strong> After a long gap, a jump is accepted when a later movement is held and the next one in order follows. It's never accepted after a restart, and never further than the student could have moved in the elapsed time.</li>
+            </ul>
+          </div></div>
+          <div class="row result"><span class="k">Result</span><div><p>Clean runs reach the end with all 20 movements, and short camera losses (up to about 5 s) are recovered.</p></div></div>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <h3>The bug only a live camera could show</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Problem</span><div><p>In live tests, the held-jump and catch-up rules almost never fired, but in replayed recordings they worked.</p></div></div>
+          <div class="row"><span class="k">Cause</span><div><p>The segmenter's clock was <code>frame_number / fps</code>, using an fps estimate that changed every frame. Live, time could step backwards and reset the hold timers. Replays used a fixed frame rate, so the bug never appeared there.</p></div></div>
+          <div class="row result"><span class="k">Result</span><div><p>I made the stream clock monotonic. In an acted test where the performer skipped one movement, the score went from 23 to 83. "Test recognition changes live, with a person in front of the camera" became a rule in the handover guide.</p></div></div>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <h3>Following the right person</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Problem</span><div><p>In a field test with students in a dojang, exam runs stopped at the first movement. The tracker had locked onto a seated observer, and on another run it switched to a smaller bystander after a 4-frame detection miss.</p></div></div>
+          <div class="row"><span class="k">What I did</span><div>
+            <ul>
+              <li>The performer is chosen afresh at the start position near the middle of the mat, and a size-ratio rule stops the tracker switching to a smaller person.</li>
+              <li>The run now starts only once a performer has held the start position for half a second, and "performer confirmed" is shown on screen.</li>
+              <li>If the performer leaves the camera's view for 2 s, the screen asks them to come back.</li>
+            </ul>
+          </div></div>
+          <div class="row result"><span class="k">Result</span><div><p>Replaying the field recording, the observer is ignored and the student is confirmed 0.7 s after stepping onto the mat.</p></div></div>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <h3>Can the score be trusted?</h3>
+        <div class="rows">
+          <div class="row"><span class="k">Problem</span><div><p>Comparing the AI scores with instructors' written evaluations showed weak agreement. The obvious next step was to tune the formulas until they matched. I didn't, because the recordings were all of skilled performers at the same level. The real differences between them were tiny, and the differences between evaluators were larger. Agreement close to zero was expected whether the scoring was good or bad, so this comparison couldn't validate anything.</p></div></div>
+          <div class="row"><span class="k">What I did</span><div>
+            <p>I changed the method. I injected known errors into real keypoints (raised arms, a narrow stance, a soft strike, a slow movement, random pose noise) and replayed them through the production scoring code. Each score had to react to its own error and ignore noise. This found concrete bugs:</p>
+            <ul>
+              <li>A calibration step that was meant to be switched off was always applied. It pinned 25–40% of every displayed score to a constant.</li>
+              <li>Posture was measured in the middle of each movement, so errors in the finished pose were missed.</li>
+              <li>Body sway was measured on keypoints that had already been centred, which cancelled most of the sway.</li>
+            </ul>
+            <p>After the fixes, the injected errors were clearly detected and noise still scored about 0. Two fairness fixes followed:</p>
+            <ul>
+              <li>The reference ranges were too narrow, so skilled performers often fell outside them. I widened them using leave-one-out checks.</li>
+              <li>Kicks scored 5–6 points lower in a 2D front view, so I added a kick scale derived on a separate set of calibration videos.</li>
+            </ul>
+          </div></div>
+          <div class="row result"><span class="k">Result</span><div>
+            <div class="table-wrap">
+              <table class="data">
+                <thead><tr><th>Check</th><th>Before</th><th>After</th></tr></thead>
+                <tbody>
+                  <tr><td>Measurements of skilled performers outside the reference range</td><td>35%</td><td>4%</td></tr>
+                  <tr><td>Kick steps of skilled performers scoring under 80</td><td>21%</td><td>2%</td></tr>
+                  <tr><td>Beginner vs advanced student, same field recordings</td><td>93.8 vs 96</td><td>86.5 vs 92</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The last row has its own story. In the field test, the two students still scored almost the same. I traced it: the live kiosk path still used the old formulas, and the new scoring ran only in the offline tools. Once connected, the scores separated. Calibrating them across skill levels needs ratings of students at different levels, and I documented that as the next step for the new team.</p>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <h3>Shipping to kiosks</h3>
+        <div class="rows">
+          <div class="row"><span class="k">What I did</span><div>
+            <ul>
+              <li>A PyInstaller build with an Inno Setup installer. I cut about 4 GB of duplicate CUDA libraries and unused packages from it.</li>
+              <li>A separate offline resources installer for the speech model and the local language model.</li>
+              <li>Auto-update: kiosks check a version file and download the new installer.</li>
+              <li>Two GPU tiers (RTX 3060 and RTX 50-series), including ONNX Runtime on the new Blackwell GPUs.</li>
+              <li>Faster boot, after I removed a slow loading path that blocked model loading.</li>
+              <li>A packaging bug: one wrong import path made the build bundle a second, partial copy of the AI package. Recognition worked from source but not in the installed app. The import rule is now in the guide.</li>
+              <li>Per-run performance lines in the log (frames per second and time per stage), so field problems can be diagnosed from the logs.</li>
+            </ul>
+          </div></div>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <h3>Handing it over</h3>
+        <div class="rows">
+          <div class="row"><span class="k">What I did</span><div>
+            <p>The project moved to a new team when I left, so I made sure it could survive without me:</p>
+            <ul>
+              <li>A 12-chapter developer guide for the AI pipeline, in English and Korean, with 10 diagrams. It's published as a small website with a start page that links it to the voice AI coach's guide.</li>
+              <li>Guides for setup, build and deployment, releasing a new version, the accounts and services the kiosk uses, maintenance, testing, and the development status (completed, unfinished, known bugs).</li>
+              <li>Failing tests sorted and 18 test files fixed. Each remaining failure is listed with its likely cause.</li>
+              <li>The classifier training code published with setup steps, and the production models packaged so they can be retrained.</li>
+            </ul>
+          </div></div>
+          <div class="row result"><span class="k">Result</span><div><p>After a walkthrough and demo, the new team installed the system on their own GPU PC from the documents alone, and the handover checklist was signed.</p></div></div>
+        </div>
+        <figure class="shot">
+          <img src="images/pipeline_guide.png" alt="The AI pipeline developer guide website: a chapter list on the left and the Overview chapter with a camera-to-report diagram on the right" width="1440" height="1000" loading="lazy">
+          <figcaption>The AI pipeline developer guide I wrote for the new team (English/Korean, light and dark).</figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <section id="learned">
+      <h2>What I learned</h2>
+      <div class="lessons">
+        <div><b>Design tests that can prove you wrong.</b><p>Forcing the CPU disproved my own GPU-contention theory, and error injection showed bugs that correlation with labels never would.</p></div>
+        <div><b>Test what the user actually sees.</b><p>Two of my biggest bugs, the stream clock and the scoring path, only existed in the live path, not in replays or offline tools.</p></div>
+        <div><b>Check what the labels can tell you before fitting to them.</b><p>Labels from one skill level can't validate a score meant to separate levels.</p></div>
+        <div><b>Every rule needs a reason written next to it.</b><p>Each recognition constant in the code names the recording or test behind it, so the next team can change it safely.</p></div>
+        <div><b>The handover is part of the product.</b><p>The new team set the system up from the documents alone, and that was the real test of them.</p></div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <h2>Tech stack</h2>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Area</th><th>Tools</th></tr></thead>
+          <tbody>
+            <tr><td>Pose</td><td>YOLO26m person detector, RTMPose (26 keypoints), ONNX Runtime GPU</td></tr>
+            <tr><td>Recognition</td><td>PyTorch LSTM per form (24-frame windows), rule-based step segmenter, DTW skip check</td></tr>
+            <tr><td>Scoring</td><td>Comparison with reference performers: whole-body distance, posture measurement ranges, DTW movement paths, technique-specific scaling</td></tr>
+            <tr><td>App</td><td>PySide6 / QML kiosk (11 screens), worker threads, SQLite, InsightFace face login</td></tr>
+            <tr><td>Voice AI coach</td><td>Built by my teammate: wake word, speech recognition, LLM with a knowledge base, text-to-speech; online and offline modes</td></tr>
+            <tr><td>Operations</td><td>PyInstaller, Inno Setup, auto-update, kiosk backup, structured performance logging</td></tr>
+            <tr><td>Quality</td><td>pytest (1,372 tests), error-injection scoring tests, live acted tests, field tests in a dojang</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">Screens and diagrams on this page contain no real student data. Product names and logos belong to their owners.</div>
+</footer>
+
+</body>
+</html>

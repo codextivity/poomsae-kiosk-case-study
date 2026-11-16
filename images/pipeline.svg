@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" role="img" aria-labelledby="t d">
+  <title id="t">From camera to report</title>
+  <desc id="d">Webcam frames go through person detection and pose estimation, performer tracking, an LSTM classifier and a step segmenter, then scoring against reference performers, and finally the practice, exam and report screens. The voice AI coach reads the saved results.</desc>
+  <style>
+    .bg { fill: #F6F8FB; }
+    .box { fill: #FFFFFF; stroke: #C9D2DE; stroke-width: 1.5; }
+    .key { fill: #EAF0FA; stroke: #1E4E9C; stroke-width: 1.5; }
+    .side { fill: #FFFFFF; stroke: #8A96A8; stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .h { font: 600 14px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #141A24; }
+    .s { font: 400 12px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #556173; }
+    .lab { font: 500 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #556173; letter-spacing: .04em; }
+    .ln { stroke: #6B7789; stroke-width: 1.5; fill: none; }
+    .ln-d { stroke: #8A96A8; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+    .ah { fill: #6B7789; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #121720; }
+      .box { fill: #1A202B; stroke: #344052; }
+      .key { fill: #1B2A44; stroke: #6F9BE8; }
+      .side { fill: #1A202B; stroke: #6E7A8D; }
+      .h { fill: #E6EAF0; }
+      .s, .lab { fill: #9AA6B8; }
+      .ln { stroke: #8592A6; }
+      .ln-d { stroke: #6E7A8D; }
+      .ah { fill: #8592A6; }
+    }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="ah" d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="960" height="300" rx="12"/>
+
+  <text class="lab" x="24" y="30">EVERY FRAME (~28 FPS)</text>
+  <text class="lab" x="24" y="190">EVERY MOVEMENT</text>
+
+  <!-- row 1 -->
+  <rect class="box" x="20" y="44" width="196" height="72" rx="8"/>
+  <text class="h" x="118" y="74" text-anchor="middle">Webcam</text>
+  <text class="s" x="118" y="94" text-anchor="middle">one USB camera, front view</text>
+
+  <rect class="box" x="256" y="44" width="196" height="72" rx="8"/>
+  <text class="h" x="354" y="74" text-anchor="middle">Detect + pose</text>
+  <text class="s" x="354" y="94" text-anchor="middle">YOLO26 + RTMPose, 26 keypoints</text>
+
+  <rect class="box" x="492" y="44" width="196" height="72" rx="8"/>
+  <text class="h" x="590" y="74" text-anchor="middle">Performer tracking</text>
+  <text class="s" x="590" y="94" text-anchor="middle">start position, ignore bystanders</text>
+
+  <rect class="box" x="728" y="44" width="212" height="72" rx="8"/>
+  <text class="h" x="834" y="74" text-anchor="middle">LSTM classifier</text>
+  <text class="s" x="834" y="94" text-anchor="middle">one per form, 24-frame window</text>
+
+  <line class="ln" x1="216" y1="80" x2="254" y2="80" marker-end="url(#a)"/>
+  <line class="ln" x1="452" y1="80" x2="490" y2="80" marker-end="url(#a)"/>
+  <line class="ln" x1="688" y1="80" x2="726" y2="80" marker-end="url(#a)"/>
+  <line class="ln" x1="834" y1="116" x2="834" y2="202" marker-end="url(#a)"/>
+
+  <!-- row 2 -->
+  <rect class="key" x="728" y="204" width="212" height="72" rx="8"/>
+  <text class="h" x="834" y="234" text-anchor="middle">Step segmenter</text>
+  <text class="s" x="834" y="254" text-anchor="middle">order, DTW skip check, catch-up</text>
+
+  <rect class="key" x="492" y="204" width="196" height="72" rx="8"/>
+  <text class="h" x="590" y="234" text-anchor="middle">Scoring</text>
+  <text class="s" x="590" y="254" text-anchor="middle">vs reference performers</text>
+
+  <rect class="box" x="256" y="204" width="196" height="72" rx="8"/>
+  <text class="h" x="354" y="234" text-anchor="middle">Screens</text>
+  <text class="s" x="354" y="254" text-anchor="middle">practice, exam, report</text>
+
+  <rect class="side" x="20" y="204" width="196" height="72" rx="8"/>
+  <text class="h" x="118" y="234" text-anchor="middle">Voice AI coach</text>
+  <text class="s" x="118" y="254" text-anchor="middle">reads the saved results</text>
+
+  <line class="ln" x1="728" y1="240" x2="690" y2="240" marker-end="url(#a)"/>
+  <line class="ln" x1="492" y1="240" x2="454" y2="240" marker-end="url(#a)"/>
+  <line class="ln-d" x1="256" y1="240" x2="218" y2="240" marker-end="url(#a)"/>
+</svg>
