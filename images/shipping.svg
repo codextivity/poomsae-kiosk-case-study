@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 268" width="960" height="268" role="img" aria-labelledby="t d"><title id="t">Shipping to kiosks</title><desc id="d">Build and release flow from code and models to a PyInstaller build, two installers, a release with a version file, and kiosks that update themselves; plus three facts: 4 GB removed from the installer, two GPU tiers, and one import rule.</desc><style>
+.bg{fill:#F6F8FB}.card{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.key{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5}.bad{fill:#FBECEA;stroke:#B8322A;stroke-width:1.5}
+.side{fill:#FFFFFF;stroke:#8A96A8;stroke-width:1.5;stroke-dasharray:5 4}
+.h{font:600 14px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.h2{font:700 17px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.s{font:400 12px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.t{font:400 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.lab{font:600 11px ui-monospace,Consolas,monospace;fill:#556173;letter-spacing:.06em}
+.num{font:700 30px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.numa{font:700 15px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#1E4E9C}
+.numm{font:600 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.numr{font:700 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#B8322A}
+.ln{stroke:#6B7789;stroke-width:1.5;fill:none}.lna{stroke:#1E4E9C;stroke-width:2;fill:none}
+.lnr{stroke:#B8322A;stroke-width:2;fill:none}.grid{stroke:#DCE2EA;stroke-width:1}
+.dash{stroke-dasharray:5 4}
+.fa{fill:#1E4E9C}.fm{fill:#AEB8C6}.fr{fill:#B8322A}.fc{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.bone{stroke:#1E4E9C;stroke-width:4;stroke-linecap:round;fill:none}
+.joint{fill:#FFFFFF;stroke:#1E4E9C;stroke-width:2}.jk{fill:#B8322A}
+.zone{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5;stroke-dasharray:5 4}
+.mat{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}.fov{fill:#1E4E9C;opacity:.06}
+.ma{fill:#6B7789}.maa{fill:#1E4E9C}.mar{fill:#B8322A}
+@media (prefers-color-scheme:dark){
+.bg{fill:#121720}.card,.mat,.fc{fill:#1A202B;stroke:#344052}.key,.zone{fill:#1B2A44;stroke:#7EA6EE}
+.bad{fill:#3A2024;stroke:#E06A5F}.side{fill:#1A202B;stroke:#6E7A8D}
+.h,.h2,.t,.num{fill:#E6EAF0}.s,.lab,.numm{fill:#9AA6B8}.numa{fill:#7EA6EE}.numr{fill:#E06A5F}
+.ln{stroke:#8592A6}.lna{stroke:#7EA6EE}.lnr{stroke:#E06A5F}.grid{stroke:#2A3342}
+.fa{fill:#7EA6EE}.fm{fill:#4A5568}.fr{fill:#E06A5F}
+.bone{stroke:#7EA6EE}.joint{fill:#121720;stroke:#7EA6EE}.jk{fill:#E06A5F}.fov{fill:#7EA6EE;opacity:.08}
+.ma{fill:#8592A6}.maa{fill:#7EA6EE}.mar{fill:#E06A5F}}
+</style><defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ma" d="M0,0 L10,5 L0,10 z"/></marker><marker id="maa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="maa" d="M0,0 L10,5 L0,10 z"/></marker><marker id="mar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mar" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="bg" x="0" y="0" width="960" height="268" rx="12"/><text class="lab" x="20.0" y="30.0">FROM CODE TO KIOSK</text><rect class="card" x="20" y="50" width="164" height="84" rx="8"/><text class="h" x="102.0" y="81.0" text-anchor="middle">Code + models</text><text class="s" x="102.0" y="100.0" text-anchor="middle">pipeline, app,</text><text class="s" x="102.0" y="116.0" text-anchor="middle">AI resources</text><path class="ln" d="M184.0,92.0 L206.0,92.0" marker-end="url(#ma)"/><rect class="card" x="208" y="50" width="164" height="84" rx="8"/><text class="h" x="290.0" y="81.0" text-anchor="middle">PyInstaller build</text><text class="s" x="290.0" y="100.0" text-anchor="middle">one exe with CUDA</text><text class="s" x="290.0" y="116.0" text-anchor="middle">and the models</text><path class="ln" d="M372.0,92.0 L394.0,92.0" marker-end="url(#ma)"/><rect class="key" x="396" y="50" width="164" height="84" rx="8"/><text class="h" x="478.0" y="81.0" text-anchor="middle">Two installers</text><text class="s" x="478.0" y="100.0" text-anchor="middle">app (Inno Setup) +</text><text class="s" x="478.0" y="116.0" text-anchor="middle">offline speech + LLM</text><path class="ln" d="M560.0,92.0 L582.0,92.0" marker-end="url(#ma)"/><rect class="card" x="584" y="50" width="164" height="84" rx="8"/><text class="h" x="666.0" y="81.0" text-anchor="middle">Release</text><text class="s" x="666.0" y="100.0" text-anchor="middle">tag + version file</text><text class="s" x="666.0" y="116.0" text-anchor="middle">for auto-update</text><path class="ln" d="M748.0,92.0 L770.0,92.0" marker-end="url(#ma)"/><rect class="card" x="772" y="50" width="164" height="84" rx="8"/><text class="h" x="854.0" y="81.0" text-anchor="middle">Kiosks</text><text class="s" x="854.0" y="100.0" text-anchor="middle">check, download</text><text class="s" x="854.0" y="116.0" text-anchor="middle">and install</text><rect class="card" x="20.0" y="164.0" width="290.0" height="84.0" rx="8"/><text class="numa" x="36.0" y="196.0">−4 GB</text><text class="s" x="36.0" y="218.0">duplicate CUDA libraries and unused</text><text class="s" x="36.0" y="234.0">packages removed</text><rect class="card" x="330.0" y="164.0" width="290.0" height="84.0" rx="8"/><text class="numa" x="346.0" y="196.0">2 GPU tiers</text><text class="s" x="346.0" y="218.0">RTX 3060 and RTX 50-series, incl. ONNX</text><text class="s" x="346.0" y="234.0">Runtime on Blackwell</text><rect class="card" x="640.0" y="164.0" width="290.0" height="84.0" rx="8"/><text class="numa" x="656.0" y="196.0">1 import rule</text><text class="s" x="656.0" y="218.0">a wrong import path bundled a second,</text><text class="s" x="656.0" y="234.0">broken copy of the AI package</text></svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 326" width="960" height="326" role="img" aria-labelledby="t d"><title id="t">Handing it over</title><desc id="d">What was handed over (guides, status, tests, training code, installers), followed by a walkthrough and demo, a setup test on the new team&#x27;s PC from the documents alone, and the signed checklist on 13 November 2026.</desc><style>
+.bg{fill:#F6F8FB}.card{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.key{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5}.bad{fill:#FBECEA;stroke:#B8322A;stroke-width:1.5}
+.side{fill:#FFFFFF;stroke:#8A96A8;stroke-width:1.5;stroke-dasharray:5 4}
+.h{font:600 14px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.h2{font:700 17px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.s{font:400 12px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.t{font:400 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.lab{font:600 11px ui-monospace,Consolas,monospace;fill:#556173;letter-spacing:.06em}
+.num{font:700 30px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.numa{font:700 15px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#1E4E9C}
+.numm{font:600 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.numr{font:700 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#B8322A}
+.ln{stroke:#6B7789;stroke-width:1.5;fill:none}.lna{stroke:#1E4E9C;stroke-width:2;fill:none}
+.lnr{stroke:#B8322A;stroke-width:2;fill:none}.grid{stroke:#DCE2EA;stroke-width:1}
+.dash{stroke-dasharray:5 4}
+.fa{fill:#1E4E9C}.fm{fill:#AEB8C6}.fr{fill:#B8322A}.fc{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.bone{stroke:#1E4E9C;stroke-width:4;stroke-linecap:round;fill:none}
+.joint{fill:#FFFFFF;stroke:#1E4E9C;stroke-width:2}.jk{fill:#B8322A}
+.zone{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5;stroke-dasharray:5 4}
+.mat{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}.fov{fill:#1E4E9C;opacity:.06}
+.ma{fill:#6B7789}.maa{fill:#1E4E9C}.mar{fill:#B8322A}
+@media (prefers-color-scheme:dark){
+.bg{fill:#121720}.card,.mat,.fc{fill:#1A202B;stroke:#344052}.key,.zone{fill:#1B2A44;stroke:#7EA6EE}
+.bad{fill:#3A2024;stroke:#E06A5F}.side{fill:#1A202B;stroke:#6E7A8D}
+.h,.h2,.t,.num{fill:#E6EAF0}.s,.lab,.numm{fill:#9AA6B8}.numa{fill:#7EA6EE}.numr{fill:#E06A5F}
+.ln{stroke:#8592A6}.lna{stroke:#7EA6EE}.lnr{stroke:#E06A5F}.grid{stroke:#2A3342}
+.fa{fill:#7EA6EE}.fm{fill:#4A5568}.fr{fill:#E06A5F}
+.bone{stroke:#7EA6EE}.joint{fill:#121720;stroke:#7EA6EE}.jk{fill:#E06A5F}.fov{fill:#7EA6EE;opacity:.08}
+.ma{fill:#8592A6}.maa{fill:#7EA6EE}.mar{fill:#E06A5F}}
+</style><defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ma" d="M0,0 L10,5 L0,10 z"/></marker><marker id="maa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="maa" d="M0,0 L10,5 L0,10 z"/></marker><marker id="mar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mar" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="bg" x="0" y="0" width="960" height="326" rx="12"/><text class="lab" x="20.0" y="30.0">HANDOVER, 9–13 NOVEMBER 2026</text><rect class="card" x="20.0" y="46.0" width="430.0" height="262.0" rx="8"/><text class="h2" x="40.0" y="76.0">Handed over</text><path class="lna" d="M40,103 l5,5 l9,-10"/><text class="t" x="62.0" y="108.0">12-chapter AI pipeline guide, English + Korean, 10 diagrams</text><path class="lna" d="M40,135 l5,5 l9,-10"/><text class="t" x="62.0" y="140.0">Setup, build, release, accounts, maintenance, testing guides</text><path class="lna" d="M40,167 l5,5 l9,-10"/><text class="t" x="62.0" y="172.0">Development status: done, unfinished, known bugs</text><path class="lna" d="M40,199 l5,5 l9,-10"/><text class="t" x="62.0" y="204.0">Tests sorted: 18 files fixed, 1,372 passing</text><path class="lna" d="M40,231 l5,5 l9,-10"/><text class="t" x="62.0" y="236.0">Training code on GitHub, production models packaged</text><path class="lna" d="M40,263 l5,5 l9,-10"/><text class="t" x="62.0" y="268.0">Installers and a verified resource drive</text><rect class="card" x="520" y="46" width="420" height="70" rx="8"/><text class="h" x="730.0" y="78.0" text-anchor="middle">Walkthrough + demo</text><text class="s" x="730.0" y="97.0" text-anchor="middle">product, pipeline, AI coach, build and release</text><path class="ln" d="M730.0,116.0 L730.0,140.0" marker-end="url(#ma)"/><rect class="card" x="520" y="142" width="420" height="70" rx="8"/><text class="h" x="730.0" y="174.0" text-anchor="middle">Setup test on the new team&#x27;s PC</text><text class="s" x="730.0" y="193.0" text-anchor="middle">installed from the documents alone: passed</text><path class="ln" d="M730.0,212.0 L730.0,236.0" marker-end="url(#ma)"/><rect class="key" x="520" y="238" width="420" height="70" rx="8"/><text class="h" x="730.0" y="270.0" text-anchor="middle">Checklist signed</text><text class="s" x="730.0" y="289.0" text-anchor="middle">13 November 2026</text><path class="ln" d="M450.0,81.0 L518.0,81.0" marker-end="url(#ma)"/></svg>

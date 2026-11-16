@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 364" width="960" height="364" role="img" aria-labelledby="t d"><title id="t">Making the live skeleton keep up</title><desc id="d">Before: the skeleton was drawn on a QML Canvas that re-uploaded a full image every frame, and reference clips loaded from disk at each movement caused 100 to 300 ms freezes. After: native scene-graph items and prewarmed clips.</desc><style>
+.bg{fill:#F6F8FB}.card{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.key{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5}.bad{fill:#FBECEA;stroke:#B8322A;stroke-width:1.5}
+.side{fill:#FFFFFF;stroke:#8A96A8;stroke-width:1.5;stroke-dasharray:5 4}
+.h{font:600 14px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.h2{font:700 17px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.s{font:400 12px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.t{font:400 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.lab{font:600 11px ui-monospace,Consolas,monospace;fill:#556173;letter-spacing:.06em}
+.num{font:700 30px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.numa{font:700 15px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#1E4E9C}
+.numm{font:600 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.numr{font:700 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#B8322A}
+.ln{stroke:#6B7789;stroke-width:1.5;fill:none}.lna{stroke:#1E4E9C;stroke-width:2;fill:none}
+.lnr{stroke:#B8322A;stroke-width:2;fill:none}.grid{stroke:#DCE2EA;stroke-width:1}
+.dash{stroke-dasharray:5 4}
+.fa{fill:#1E4E9C}.fm{fill:#AEB8C6}.fr{fill:#B8322A}.fc{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.bone{stroke:#1E4E9C;stroke-width:4;stroke-linecap:round;fill:none}
+.joint{fill:#FFFFFF;stroke:#1E4E9C;stroke-width:2}.jk{fill:#B8322A}
+.zone{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5;stroke-dasharray:5 4}
+.mat{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}.fov{fill:#1E4E9C;opacity:.06}
+.ma{fill:#6B7789}.maa{fill:#1E4E9C}.mar{fill:#B8322A}
+@media (prefers-color-scheme:dark){
+.bg{fill:#121720}.card,.mat,.fc{fill:#1A202B;stroke:#344052}.key,.zone{fill:#1B2A44;stroke:#7EA6EE}
+.bad{fill:#3A2024;stroke:#E06A5F}.side{fill:#1A202B;stroke:#6E7A8D}
+.h,.h2,.t,.num{fill:#E6EAF0}.s,.lab,.numm{fill:#9AA6B8}.numa{fill:#7EA6EE}.numr{fill:#E06A5F}
+.ln{stroke:#8592A6}.lna{stroke:#7EA6EE}.lnr{stroke:#E06A5F}.grid{stroke:#2A3342}
+.fa{fill:#7EA6EE}.fm{fill:#4A5568}.fr{fill:#E06A5F}
+.bone{stroke:#7EA6EE}.joint{fill:#121720;stroke:#7EA6EE}.jk{fill:#E06A5F}.fov{fill:#7EA6EE;opacity:.08}
+.ma{fill:#8592A6}.maa{fill:#7EA6EE}.mar{fill:#E06A5F}}
+</style><defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ma" d="M0,0 L10,5 L0,10 z"/></marker><marker id="maa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="maa" d="M0,0 L10,5 L0,10 z"/></marker><marker id="mar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mar" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="bg" x="0" y="0" width="960" height="364" rx="12"/><text class="lab" x="20.0" y="38.0">BEFORE</text><rect class="card" x="20" y="50" width="150" height="76" rx="8"/><text class="h" x="95.0" y="93.0" text-anchor="middle">Pose result</text><path class="ln" d="M170.0,88.0 L206.0,88.0" marker-end="url(#ma)"/><rect class="bad" x="208" y="50" width="250" height="76" rx="8"/><text class="h" x="333.0" y="77.0" text-anchor="middle">QML Canvas</text><text class="s" x="333.0" y="96.0" text-anchor="middle">redraws and uploads a full</text><text class="s" x="333.0" y="112.0" text-anchor="middle">image every frame (CPU)</text><path class="ln" d="M458.0,88.0 L494.0,88.0" marker-end="url(#ma)"/><rect class="card" x="496" y="50" width="130" height="76" rx="8"/><text class="h" x="561.0" y="93.0" text-anchor="middle">Screen</text><rect class="bad" x="680" y="50" width="260" height="76" rx="8"/><text class="h" x="810.0" y="77.0" text-anchor="middle">Reference clip loaded</text><text class="s" x="810.0" y="96.0" text-anchor="middle">from disk at each movement:</text><text class="s" x="810.0" y="112.0" text-anchor="middle">100–300 ms freeze</text><text class="lab" x="20.0" y="178.0">AFTER</text><rect class="card" x="20" y="190" width="150" height="76" rx="8"/><text class="h" x="95.0" y="233.0" text-anchor="middle">Pose result</text><path class="ln" d="M170.0,228.0 L206.0,228.0" marker-end="url(#ma)"/><rect class="key" x="208" y="190" width="250" height="76" rx="8"/><text class="h" x="333.0" y="217.0" text-anchor="middle">Scene-graph items</text><text class="s" x="333.0" y="236.0" text-anchor="middle">only move the points and</text><text class="s" x="333.0" y="252.0" text-anchor="middle">lines (GPU)</text><path class="ln" d="M458.0,228.0 L494.0,228.0" marker-end="url(#ma)"/><rect class="card" x="496" y="190" width="130" height="76" rx="8"/><text class="h" x="561.0" y="233.0" text-anchor="middle">Screen</text><rect class="key" x="680" y="190" width="260" height="76" rx="8"/><text class="h" x="810.0" y="217.0" text-anchor="middle">All clips prewarmed</text><text class="s" x="810.0" y="236.0" text-anchor="middle">on the loading screen:</text><text class="s" x="810.0" y="252.0" text-anchor="middle">no freeze between movements</text><line class="grid" x1="20.0" y1="300.0" x2="940.0" y2="300.0"/><text class="t" x="20.0" y="324.0">Before: CPU 80–90%, GPU about 40%, skeleton lagged on fast movements.</text><text class="t" x="20.0" y="344.0">After: smooth on fast movements, confirmed with the installed build on two PCs.</text></svg>

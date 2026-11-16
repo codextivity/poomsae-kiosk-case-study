@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="960" height="320" role="img" aria-labelledby="t d"><title id="t">How I tested the scores</title><desc id="d">Known errors are injected into real keypoints and replayed through the production scoring code, to check that the right score drops and noise stays near zero. It found three bugs.</desc><style>
+.bg{fill:#F6F8FB}.card{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.key{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5}.bad{fill:#FBECEA;stroke:#B8322A;stroke-width:1.5}
+.side{fill:#FFFFFF;stroke:#8A96A8;stroke-width:1.5;stroke-dasharray:5 4}
+.h{font:600 14px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.h2{font:700 17px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.s{font:400 12px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.t{font:400 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.lab{font:600 11px ui-monospace,Consolas,monospace;fill:#556173;letter-spacing:.06em}
+.num{font:700 30px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.numa{font:700 15px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#1E4E9C}
+.numm{font:600 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.numr{font:700 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#B8322A}
+.ln{stroke:#6B7789;stroke-width:1.5;fill:none}.lna{stroke:#1E4E9C;stroke-width:2;fill:none}
+.lnr{stroke:#B8322A;stroke-width:2;fill:none}.grid{stroke:#DCE2EA;stroke-width:1}
+.dash{stroke-dasharray:5 4}
+.fa{fill:#1E4E9C}.fm{fill:#AEB8C6}.fr{fill:#B8322A}.fc{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.bone{stroke:#1E4E9C;stroke-width:4;stroke-linecap:round;fill:none}
+.joint{fill:#FFFFFF;stroke:#1E4E9C;stroke-width:2}.jk{fill:#B8322A}
+.zone{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5;stroke-dasharray:5 4}
+.mat{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}.fov{fill:#1E4E9C;opacity:.06}
+.ma{fill:#6B7789}.maa{fill:#1E4E9C}.mar{fill:#B8322A}
+@media (prefers-color-scheme:dark){
+.bg{fill:#121720}.card,.mat,.fc{fill:#1A202B;stroke:#344052}.key,.zone{fill:#1B2A44;stroke:#7EA6EE}
+.bad{fill:#3A2024;stroke:#E06A5F}.side{fill:#1A202B;stroke:#6E7A8D}
+.h,.h2,.t,.num{fill:#E6EAF0}.s,.lab,.numm{fill:#9AA6B8}.numa{fill:#7EA6EE}.numr{fill:#E06A5F}
+.ln{stroke:#8592A6}.lna{stroke:#7EA6EE}.lnr{stroke:#E06A5F}.grid{stroke:#2A3342}
+.fa{fill:#7EA6EE}.fm{fill:#4A5568}.fr{fill:#E06A5F}
+.bone{stroke:#7EA6EE}.joint{fill:#121720;stroke:#7EA6EE}.jk{fill:#E06A5F}.fov{fill:#7EA6EE;opacity:.08}
+.ma{fill:#8592A6}.maa{fill:#7EA6EE}.mar{fill:#E06A5F}}
+</style><defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ma" d="M0,0 L10,5 L0,10 z"/></marker><marker id="maa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="maa" d="M0,0 L10,5 L0,10 z"/></marker><marker id="mar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mar" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="bg" x="0" y="0" width="960" height="320" rx="12"/><text class="lab" x="20.0" y="30.0">HOW I TESTED THE SCORES</text><rect class="card" x="20" y="50" width="200" height="100" rx="8"/><text class="h" x="120.0" y="89.0" text-anchor="middle">Real keypoints</text><text class="s" x="120.0" y="108.0" text-anchor="middle">test videos, not the</text><text class="s" x="120.0" y="124.0" text-anchor="middle">reference performers</text><path class="ln" d="M220.0,100.0 L253.0,100.0" marker-end="url(#ma)"/><rect class="key" x="255" y="50" width="200" height="100" rx="8"/><text class="h" x="355.0" y="81.0" text-anchor="middle">Inject one known error</text><text class="s" x="355.0" y="100.0" text-anchor="middle">raised arms · narrow stance</text><text class="s" x="355.0" y="116.0" text-anchor="middle">soft strike · slow movement</text><text class="s" x="355.0" y="132.0" text-anchor="middle">random pose noise</text><path class="ln" d="M455.0,100.0 L488.0,100.0" marker-end="url(#ma)"/><rect class="card" x="490" y="50" width="200" height="100" rx="8"/><text class="h" x="590.0" y="89.0" text-anchor="middle">Production scoring</text><text class="s" x="590.0" y="108.0" text-anchor="middle">the same code</text><text class="s" x="590.0" y="124.0" text-anchor="middle">the kiosk runs</text><path class="ln" d="M690.0,100.0 L723.0,100.0" marker-end="url(#ma)"/><rect class="card" x="725" y="50" width="200" height="100" rx="8"/><text class="h" x="825.0" y="89.0" text-anchor="middle">Check</text><text class="s" x="825.0" y="108.0" text-anchor="middle">the right score drops,</text><text class="s" x="825.0" y="124.0" text-anchor="middle">noise stays near 0</text><text class="lab" x="20.0" y="186.0">WHAT IT FOUND</text><rect class="bad" x="20.0" y="200.0" width="290.0" height="100.0" rx="8"/><text class="h" x="36.0" y="226.0">A switched-off calibration</text><text class="h" x="36.0" y="244.0">step was always applied</text><text class="s" x="36.0" y="268.0">it pinned 25–40% of every</text><text class="s" x="36.0" y="284.0">displayed score to a constant</text><rect class="bad" x="330.0" y="200.0" width="290.0" height="100.0" rx="8"/><text class="h" x="346.0" y="226.0">Posture was measured</text><text class="h" x="346.0" y="244.0">in the middle of the movement</text><text class="s" x="346.0" y="268.0">so errors in the finished</text><text class="s" x="346.0" y="284.0">pose were missed</text><rect class="bad" x="640.0" y="200.0" width="290.0" height="100.0" rx="8"/><text class="h" x="656.0" y="226.0">Sway was measured on</text><text class="h" x="656.0" y="244.0">already-centred keypoints</text><text class="s" x="656.0" y="268.0">which cancelled most</text><text class="s" x="656.0" y="284.0">of the sway</text></svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" width="960" height="390" role="img" aria-labelledby="t d"><title id="t">Following the right person</title><desc id="d">Top view of the mat: the performer at the start position is followed; a seated observer and a person walking past are ignored. Four rules for choosing the performer.</desc><style>
+.bg{fill:#F6F8FB}.card{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.key{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5}.bad{fill:#FBECEA;stroke:#B8322A;stroke-width:1.5}
+.side{fill:#FFFFFF;stroke:#8A96A8;stroke-width:1.5;stroke-dasharray:5 4}
+.h{font:600 14px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.h2{font:700 17px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.s{font:400 12px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.t{font:400 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.lab{font:600 11px ui-monospace,Consolas,monospace;fill:#556173;letter-spacing:.06em}
+.num{font:700 30px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#141A24}
+.numa{font:700 15px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#1E4E9C}
+.numm{font:600 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#556173}
+.numr{font:700 13px system-ui,-apple-system,'Segoe UI',sans-serif;fill:#B8322A}
+.ln{stroke:#6B7789;stroke-width:1.5;fill:none}.lna{stroke:#1E4E9C;stroke-width:2;fill:none}
+.lnr{stroke:#B8322A;stroke-width:2;fill:none}.grid{stroke:#DCE2EA;stroke-width:1}
+.dash{stroke-dasharray:5 4}
+.fa{fill:#1E4E9C}.fm{fill:#AEB8C6}.fr{fill:#B8322A}.fc{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}
+.bone{stroke:#1E4E9C;stroke-width:4;stroke-linecap:round;fill:none}
+.joint{fill:#FFFFFF;stroke:#1E4E9C;stroke-width:2}.jk{fill:#B8322A}
+.zone{fill:#EAF0FA;stroke:#1E4E9C;stroke-width:1.5;stroke-dasharray:5 4}
+.mat{fill:#FFFFFF;stroke:#C9D2DE;stroke-width:1.5}.fov{fill:#1E4E9C;opacity:.06}
+.ma{fill:#6B7789}.maa{fill:#1E4E9C}.mar{fill:#B8322A}
+@media (prefers-color-scheme:dark){
+.bg{fill:#121720}.card,.mat,.fc{fill:#1A202B;stroke:#344052}.key,.zone{fill:#1B2A44;stroke:#7EA6EE}
+.bad{fill:#3A2024;stroke:#E06A5F}.side{fill:#1A202B;stroke:#6E7A8D}
+.h,.h2,.t,.num{fill:#E6EAF0}.s,.lab,.numm{fill:#9AA6B8}.numa{fill:#7EA6EE}.numr{fill:#E06A5F}
+.ln{stroke:#8592A6}.lna{stroke:#7EA6EE}.lnr{stroke:#E06A5F}.grid{stroke:#2A3342}
+.fa{fill:#7EA6EE}.fm{fill:#4A5568}.fr{fill:#E06A5F}
+.bone{stroke:#7EA6EE}.joint{fill:#121720;stroke:#7EA6EE}.jk{fill:#E06A5F}.fov{fill:#7EA6EE;opacity:.08}
+.ma{fill:#8592A6}.maa{fill:#7EA6EE}.mar{fill:#E06A5F}}
+</style><defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ma" d="M0,0 L10,5 L0,10 z"/></marker><marker id="maa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="maa" d="M0,0 L10,5 L0,10 z"/></marker><marker id="mar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mar" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="bg" x="0" y="0" width="960" height="390" rx="12"/><text class="lab" x="40.0" y="30.0">TOP VIEW OF THE MAT</text><polygon class="fov" points="190,372 30,40 350,40"/><rect class="mat" x="40" y="44" width="300" height="290" rx="6"/><circle class="zone" cx="190" cy="180" r="46"/><circle class="fa" cx="190" cy="180" r="13"/><text class="t" x="190.0" y="245.0" text-anchor="middle">performer · followed</text><text class="s" x="190.0" y="124.0" text-anchor="middle">start position</text><circle class="fm" cx="80" cy="292" r="11"/><text class="s" x="108.0" y="296.0">seated observer</text><rect class="side" x="58" y="270" width="44" height="44" rx="8" style="stroke:#B8322A"/><circle class="fm" cx="92" cy="78" r="11"/><path class="ln" d="M108.0,78.0 L150.0,78.0" marker-end="url(#ma)"/><text class="s" x="92.0" y="104.0" text-anchor="middle">walking past</text><rect class="card" x="176.0" y="350.0" width="28.0" height="18.0" rx="4"/><text class="s" x="214.0" y="364.0">camera</text><text class="lab" x="400.0" y="30.0">WHO DOES THE AI FOLLOW?</text><circle class="fa" cx="410" cy="71" r="5"/><text class="h" x="428.0" y="76.0">Chosen at the start position</text><text class="s" x="428.0" y="95.0">near the middle of the mat, when the countdown ends</text><circle class="fa" cx="410" cy="133" r="5"/><text class="h" x="428.0" y="138.0">Confirmed before the run starts</text><text class="s" x="428.0" y="157.0">held for 0.5 s, then “performer confirmed” on screen</text><circle class="fa" cx="410" cy="195" r="5"/><text class="h" x="428.0" y="200.0">Never swaps to a smaller person</text><text class="s" x="428.0" y="219.0">a missed detection no longer jumps to a bystander</text><circle class="fa" cx="410" cy="257" r="5"/><text class="h" x="428.0" y="262.0">Asked to come back</text><text class="s" x="428.0" y="281.0">after 2 s out of the camera&#x27;s view</text><rect class="bad" x="400.0" y="318.0" width="540.0" height="46.0" rx="8"/><text class="t" x="416.0" y="337.0">Field test: the old tracker locked onto the seated observer (red box),</text><text class="t" x="416.0" y="355.0">so exam runs stopped at the first movement.</text></svg>
